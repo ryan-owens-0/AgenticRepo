@@ -1,0 +1,234 @@
+{
+  "queries": {
+    "rent_quality": {
+      "methods": [
+        {
+          "language": "evidence",
+          "code": "Read the reviewed 2026-11-05 PostgreSQL snapshot and source profile. Proposed-key duplicates and conflicting payload groups are diagnostics; no rent amounts are aggregated."
+        }
+      ],
+      "source": {
+        "sourceLinks": [
+          {
+            "label": "HUD active multifamily property workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/activeportfoliopropdata.xlsx"
+          },
+          {
+            "label": "HUD contract rent and utility allowance workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/contractsrentutilityamt.xlsx"
+          }
+        ],
+        "label": "HUD Multifamily public data snapshot (as of 2026-10-06; captured 2026-11-05)",
+        "retrievedAt": "2026-11-05T14:56:07Z",
+        "filters": [
+          "HUD active multifamily property extract; HUD contract rent and utility allowance extract"
+        ],
+        "tables": [
+          "core.dim_hud_property",
+          "core.hud_rent_observation"
+        ],
+        "sourceAsOf": "2026-10-06"
+      },
+      "rows": [
+        {
+          "rentRows": 73298,
+          "matchedRows": 63363,
+          "unmatchedRows": 9935,
+          "duplicateKeyGroups": 28351,
+          "conflictingGroups": 27741,
+          "exactCopyGroups": 800,
+          "grainStatus": "unresolved",
+          "aggregationStatus": "blocked"
+        }
+      ]
+    },
+    "portfolio_summary": {
+      "methods": [
+        {
+          "language": "evidence",
+          "code": "Read the reviewed 2026-11-05 PostgreSQL snapshot, sourced from the 2026-10-06 HUD property workbook. Counts and unit totals are source-reported."
+        }
+      ],
+      "source": {
+        "sourceLinks": [
+          {
+            "label": "HUD active multifamily property workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/activeportfoliopropdata.xlsx"
+          },
+          {
+            "label": "HUD contract rent and utility allowance workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/contractsrentutilityamt.xlsx"
+          }
+        ],
+        "label": "HUD Multifamily public data snapshot (as of 2026-10-06; captured 2026-11-05)",
+        "retrievedAt": "2026-11-05T14:56:07Z",
+        "filters": [
+          "HUD active multifamily property extract; HUD contract rent and utility allowance extract"
+        ],
+        "tables": [
+          "core.dim_hud_property",
+          "core.hud_rent_observation"
+        ],
+        "sourceAsOf": "2026-10-06"
+      },
+      "rows": [
+        {
+          "propertyRows": 37438,
+          "hudReportedUnits": 3022278,
+          "assistedUnits": 1484747,
+          "arkansasProperties": 453,
+          "hotSpringsRows": 17,
+          "sourceDate": "2026-10-06"
+        }
+      ]
+    },
+    "bedroom_source_rows": {
+      "methods": [
+        {
+          "language": "evidence",
+          "code": "Source-row counts by assistance bedroom count from both HUD rent workbook sheets; rows are retained observations, not unique units or properties."
+        }
+      ],
+      "source": {
+        "sourceLinks": [
+          {
+            "label": "HUD active multifamily property workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/activeportfoliopropdata.xlsx"
+          },
+          {
+            "label": "HUD contract rent and utility allowance workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/contractsrentutilityamt.xlsx"
+          }
+        ],
+        "label": "HUD Multifamily public data snapshot (as of 2026-10-06; captured 2026-11-05)",
+        "retrievedAt": "2026-11-05T14:56:07Z",
+        "filters": [
+          "HUD active multifamily property extract; HUD contract rent and utility allowance extract"
+        ],
+        "tables": [
+          "core.dim_hud_property",
+          "core.hud_rent_observation"
+        ],
+        "sourceAsOf": "2026-10-06"
+      },
+      "rows": [
+        {
+          "bedrooms": 0,
+          "sourceRows": 5108
+        },
+        {
+          "bedrooms": 1,
+          "sourceRows": 33101
+        },
+        {
+          "bedrooms": 2,
+          "sourceRows": 19349
+        },
+        {
+          "bedrooms": 3,
+          "sourceRows": 11401
+        },
+        {
+          "bedrooms": 4,
+          "sourceRows": 3577
+        },
+        {
+          "bedrooms": 5,
+          "sourceRows": 724
+        },
+        {
+          "bedrooms": 6,
+          "sourceRows": 38
+        }
+      ]
+    },
+    "state_property_counts": {
+      "methods": [
+        {
+          "language": "evidence",
+          "code": "Twelve largest state counts from the HUD active property sheet profile. Displayed counts are properties, not units."
+        }
+      ],
+      "source": {
+        "sourceLinks": [
+          {
+            "label": "HUD active multifamily property workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/activeportfoliopropdata.xlsx"
+          },
+          {
+            "label": "HUD contract rent and utility allowance workbook",
+            "url": "https://www.hud.gov/sites/dfiles/Housing/documents/contractsrentutilityamt.xlsx"
+          }
+        ],
+        "label": "HUD Multifamily public data snapshot (as of 2026-10-06; captured 2026-11-05)",
+        "retrievedAt": "2026-11-05T14:56:07Z",
+        "filters": [
+          "HUD active multifamily property extract; HUD contract rent and utility allowance extract"
+        ],
+        "tables": [
+          "core.dim_hud_property",
+          "core.hud_rent_observation"
+        ],
+        "sourceAsOf": "2026-10-06"
+      },
+      "rows": [
+        {
+          "state": "CA",
+          "properties": 2726
+        },
+        {
+          "state": "TX",
+          "properties": 2386
+        },
+        {
+          "state": "OH",
+          "properties": 2080
+        },
+        {
+          "state": "NY",
+          "properties": 1898
+        },
+        {
+          "state": "IL",
+          "properties": 1616
+        },
+        {
+          "state": "MA",
+          "properties": 1420
+        },
+        {
+          "state": "NC",
+          "properties": 1367
+        },
+        {
+          "state": "PA",
+          "properties": 1364
+        },
+        {
+          "state": "FL",
+          "properties": 1362
+        },
+        {
+          "state": "MN",
+          "properties": 1225
+        },
+        {
+          "state": "MI",
+          "properties": 1212
+        },
+        {
+          "state": "MD",
+          "properties": 1000
+        }
+      ]
+    }
+  },
+  "exportPreferences": {
+    "destinations": [],
+    "selected": null
+  },
+  "filters": [],
+  "buildStatus": "creating",
+  "status": "reviewed",
+  "title": "Pricing data foundation"
+}

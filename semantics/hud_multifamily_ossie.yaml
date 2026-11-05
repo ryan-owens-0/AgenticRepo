@@ -136,4 +136,3 @@ relationships:
     to: hud_property
     from_columns: [property_id]
     to_columns: [property_id]
-

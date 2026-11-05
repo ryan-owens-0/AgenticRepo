@@ -12,4 +12,3 @@ Capture date: 2026-11-05. Source-data as-of date: 2026-10-06.
 HUD describes these files as compiled from multiple sources and not complete or all-inclusive. They represent a public HUD multifamily universe, not private property-management systems or the whole rental market.
 
 The source URLs and SHA-256 values for the current capture are recorded in artifacts/source-profile-2026-11-05.json.
-

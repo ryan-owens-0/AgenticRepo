@@ -1,0 +1,31 @@
+-- Manager-role reporting measures.
+-- Grain: PropertyOverview contains non-overlapping state/county/MSA/category
+-- groups; RentSourceQuality is pre-aggregated by match status/state/bedroom.
+-- These measures count HUD source coverage and data readiness. They do not
+-- estimate market rent or support pricing recommendations.
+HUD Properties = SUM ( PropertyOverview[hud_property_count] )
+
+HUD Reported Units = SUM ( PropertyOverview[hud_reported_total_units] )
+
+HUD Reported Assisted Units = SUM ( PropertyOverview[hud_reported_assisted_units] )
+
+Rent Source Rows = SUM ( RentSourceQuality[source_row_count] )
+
+Unmatched Rent Source Rows =
+CALCULATE (
+    [Rent Source Rows],
+    RentSourceQuality[property_match_status] = "unmatched_property_id"
+)
+
+Unmatched Rent Source Row Rate =
+DIVIDE ( [Unmatched Rent Source Rows], [Rent Source Rows] )
+
+Repeated Proposed-Key Rows = SUM ( RentSourceQuality[repeated_key_rows] )
+
+Conflicting Payload Rows = SUM ( RentSourceQuality[conflicting_payload_rows] )
+
+-- Suggested display formats:
+-- HUD Properties, HUD Reported Units, HUD Reported Assisted Units,
+-- Rent Source Rows, Unmatched Rent Source Rows, Repeated Proposed-Key Rows,
+-- Conflicting Payload Rows: whole number with thousands separators.
+-- Unmatched Rent Source Row Rate: percentage, 1 decimal place.

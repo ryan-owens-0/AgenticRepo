@@ -194,4 +194,3 @@ SELECT
     ) AS duplicate_payloads) AS exact_payload_copy_groups;
 
 COMMIT;
-

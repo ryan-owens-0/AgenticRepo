@@ -8,3 +8,7 @@ data/processed/*
 !data/processed/.gitkeep
 *.log
 
+node_modules/
+.data-app-offline/
+.openai/
+.DS_Store

@@ -127,4 +127,3 @@ COMMENT ON TABLE core.hud_rent_observation IS
     'One row per nonblank HUD workbook observation. Property/contract/bedroom is not unique; amounts are not additive until source grain is resolved.';
 
 COMMIT;
-

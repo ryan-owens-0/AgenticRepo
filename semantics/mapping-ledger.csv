@@ -7,4 +7,3 @@ utility_allowance_amount,One HUD rent source observation,mart.vw_hud_rent_observ
 row_gross_amount,One HUD rent source observation,contract_rent_amount + utility_allowance_amount,Detail row only; conditional display,Detail row only; conditional display,Amount basis and duplicate-row semantics unresolved
 row_gross_to_fmr_ratio,One HUD rent source observation,(contract_rent_amount + utility_allowance_amount) / fair_market_rent_amount,Detail row only; conditional display,Detail row only; conditional display,No portfolio average until grain and comparability are confirmed
 assistance_unit_count,One HUD rent source observation,mart.vw_hud_rent_observation.assistance_unit_count,Display with source row; do not use as a weight,Display with source row; do not use as a weight,Weighting blocked until row grain is resolved
-

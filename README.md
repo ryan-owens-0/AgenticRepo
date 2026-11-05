@@ -1,5 +1,15 @@
 # HUD Multifamily Public Data Portfolio
 
+## Open the dashboard
+
+The polished HTML dashboard presents HUD portfolio coverage, state and bedroom breakdowns, and rent-source quality diagnostics with inspectable sources. The reviewed data is a fixed snapshot: HUD source date **October 6, 2026**, captured **November 5, 2026**.
+
+- **Portable offline copy:** [HUD-Pricing-Data-Foundation.html](deliverables/HUD-Pricing-Data-Foundation.html). Download the file and open it in a browser; no database or application install is needed to view the saved snapshot.
+- **Editable dashboard source and preview instructions:** [dashboard-pricing-readiness/README.md](dashboard-pricing-readiness/README.md).
+- **Web-ready build:** [dashboard-pricing-readiness/dist/](dashboard-pricing-readiness/dist/). Serve the complete directory so its reviewed-data sidecar can load.
+
+The dashboard is a portfolio demonstration inspired by multifamily reporting workflows. Rent aggregation remains on hold while the source observation grain is unresolved.
+
 This project is the first executable slice of the REBA public-stack workback:
 
 HUD source workbooks → Python source-row loader → PostgreSQL raw/staging/core layers → Apache Ossie semantic contract → Power BI and Paginated Report Builder.
@@ -23,7 +33,7 @@ See artifacts/source-profile-2026-11-05.json for counts, sheet names, source has
 
 Python 3.13 and Docker Desktop are available. The loader uses only Python's standard library, so it has no separate package-install step. PostgreSQL runs in a local 16.15 container bound only to 127.0.0.1; the container was healthy at the latest check and uses the ignored .env file and a named Docker volume. The Windows PostgreSQL command-line tools are not installed; `psql` is available inside the database container.
 
-Power BI Desktop x64 (2.159.1231.0), Power BI Report Builder (15.7.1821.21), and psqlODBC 18.00.0006 x64 are installed. The registered 64-bit PostgreSQL Unicode ODBC driver opens a fresh connection using the local `.env` credentials and reads 37,438 property rows. Power BI Desktop's bundled Npgsql 4.0.17 also connects and reads 37,438 properties and 73,298 rent observations. Report Builder's connection test reaches PostgreSQL but fails password authentication for user `portfolio`, so its end-to-end connection is not yet verified. See the latest entry in `docs/build-log-2026-11-05.md`.
+Power BI Desktop x64 (2.159.1231.0), Power BI Report Builder (15.7.1821.21), and psqlODBC 18.00.0006 x64 are installed. The registered 64-bit PostgreSQL Unicode ODBC driver opens a fresh connection using the local `.env` credentials and reads 37,438 property rows. Power BI Desktop's bundled Npgsql 4.0.17 also connects and reads 37,438 properties and 73,298 rent observations. Report Builder now connects through the 64-bit ODBC driver. In an unsaved smoke-test report, query validation and preview succeeded for `SELECT COUNT(*) AS report_builder_probe FROM core.dim_hud_property`, and the preview displayed 37,438. See the latest entry in `docs/build-log-2026-11-05.md`.
 
 Create a local password file by copying .env.example to .env and replacing the password. Then:
 
@@ -61,9 +71,11 @@ To inspect the database from a local client, use host 127.0.0.1, port 5432, data
 
 semantics/hud_multifamily_ossie.yaml uses Apache Ossie's flat document shape and pins the draft spec version 0.2.0.dev0, observed at Apache Ossie commit 172a3e566f2fc9c0a733ebbb470e97c33d2bd8b1. The format and semantics are evolving. The YAML is a manual semantic contract; it does not automatically generate SQL, DAX, or RDL. See semantics/mapping-ledger.csv for the explicit bindings and their status.
 
-## Reporting work not yet built
+## Reporting deliverables in progress
 
-There is no PBIX, RDL, or PDF in this checkout yet. A direct 64-bit ODBC query works, but Report Builder's Test Connection still fails password authentication for user `portfolio`; verify a live query preview after resolving that connection path. The next report step is a property overview and a source-quality page. The rent/assistance page and paginated rent summary depend on resolving the repeated rent rows and confirming amount comparability. No output should describe this HUD extract as all rental housing or infer occupancy, revenue, NOI, or operator performance.
+- `reports/HUD Pricing Inputs - Portfolio and Data Quality Review.rdl` is an editable Paginated Report Builder definition with source-quality counts and property coverage by state/category. Its ODBC connection uses the local PostgreSQL driver and prompts for credentials; the file contains no password. The report definition was authored but has not yet been opened or previewed in Report Builder.
+- `powerbi/REBA Pricing Insights/` contains Power Query source queries, DAX measures, and a two-page visual layout plan for Power BI Desktop. The saved `C:\Users\aries\Documents\REBAtest.pbix` now has three imported PostgreSQL tables (`PropertyOverview`, `SourceQuality`, and `RentSourceQuality`) and a first report page with property counts by state, a five-metric source-quality summary, and a pricing limitation note. The query previews and report visuals were checked in Power BI Desktop; the PBIX was saved at 2:27 PM on 2026-11-05.
+- The Power BI model can show portfolio coverage and rent-source readiness. Pricing recommendations, private-market asking rents, occupancy, leasing velocity, concessions, renewals, realized revenue, and NOI are not present in these HUD files. No contract-rent or FMR aggregation is published while the repeated key and amount grain remain unresolved.
 
 ## Public sources
 
@@ -73,4 +85,3 @@ There is no PBIX, RDL, or PDF in this checkout yet. A direct 64-bit ODBC query w
 - [Apache Ossie core specification pinned to the observed commit](https://github.com/apache/ossie/blob/172a3e566f2fc9c0a733ebbb470e97c33d2bd8b1/core-spec/spec.md)
 - [Power BI PostgreSQL prerequisites](https://learn.microsoft.com/en-us/power-bi/desktop-data-source-prerequisites)
 - [Report Builder ODBC support](https://learn.microsoft.com/en-us/power-bi/paginated-reports/paginated-reports-odbc-support)
-

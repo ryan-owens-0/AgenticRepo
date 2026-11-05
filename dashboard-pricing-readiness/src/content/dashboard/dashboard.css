@@ -1,0 +1,21 @@
+.pricing-dashboard { display: flex; flex-direction: column; gap: 0; }
+.pricing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding: 8px 0 28px; }
+.pricing-header h1 { margin: 6px 0 8px; font-size: clamp(30px, 4vw, 42px); letter-spacing: -1.5px; line-height: 1.08; }
+.eyebrow { margin: 0; color: var(--secondary); font-size: 12px; font-weight: 650; letter-spacing: .11em; text-transform: uppercase; }
+.header-copy { max-width: 700px; margin: 0; color: var(--secondary); font-size: 15px; line-height: 1.55; }
+.status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--secondary); font-size: 12px; white-space: nowrap; }
+.status-pill span { width: 8px; height: 8px; border-radius: 50%; background: #4b9b83; }
+.metric-card { min-height: 138px; }
+.metric-value { margin-top: 16px; font-size: clamp(26px, 3vw, 34px); font-weight: 700; letter-spacing: -1px; color: var(--text); }
+.metric-detail { margin-top: 6px; color: var(--secondary); font-size: 12px; line-height: 1.45; }
+.pricing-callout { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 16px; margin-top: 32px; padding: 22px 24px; border: 1px solid color-mix(in srgb, #bb7a45 34%, var(--border)); border-radius: 18px; background: color-mix(in srgb, #bb7a45 8%, var(--surface)); }
+.gate-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: color-mix(in srgb, #bb7a45 16%, var(--surface)); color: var(--text); font-size: 18px; font-weight: 750; }
+.pricing-callout h2 { margin: 0 0 5px; font-size: 16px; color: var(--text); }
+.pricing-callout p { max-width: 890px; margin: 0; color: var(--secondary); font-size: 13px; line-height: 1.55; }
+.gate-state { color: var(--text); font-size: 12px; font-weight: 700; white-space: nowrap; }
+@media (max-width: 700px) { .pricing-header { flex-direction: column; } .pricing-callout { grid-template-columns: 32px 1fr; } .gate-state { grid-column: 2; } }
+
+.pricing-dashboard .metric-card { border-top: 3px solid color-mix(in srgb, var(--chart-1) 55%, var(--border)); }
+.pricing-provenance { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; margin-top: 24px; padding: 18px 0 8px; border-top: 1px solid var(--border); font-size: 11px; line-height: 1.6; color: var(--secondary); }
+.pricing-provenance a { color: var(--text); text-underline-offset: 3px; }
+@media print { .pricing-header { padding-bottom: 12px; } .pricing-callout { break-inside: avoid; } .pricing-provenance { font-size: 9px; } }
