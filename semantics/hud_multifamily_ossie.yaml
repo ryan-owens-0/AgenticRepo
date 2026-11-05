@@ -1,0 +1,139 @@
+version: 0.2.0.dev0
+name: hud_multifamily_public_source_model
+description: >-
+  A provenance-first semantic contract for the October 2026 HUD active
+  multifamily property and contract rent workbook extracts. The rent source is
+  represented at source-observation grain because property, contract, and
+  bedroom do not form a unique key in the published workbook.
+ai_context:
+  instructions: >-
+    This model covers HUD-published public multifamily records, not all
+    rental housing or a private operator's full portfolio. Treat rent rows as
+    individual source observations. Do not sum, average, or weight rent,
+    utility allowance, assistance-unit, or FMR values until the source grain
+    and amount basis are resolved. Preserve unmatched property IDs and
+    distinguish source rows from contracts or bedrooms.
+datasets:
+  - name: hud_property
+    source: core.dim_hud_property
+    primary_key: [property_id]
+    description: One active HUD multifamily property row.
+    fields:
+      - name: property_id
+        expression:
+          sql: property_id
+        datatype: Integer
+        description: HUD-assigned property identifier.
+      - name: property_name
+        expression:
+          sql: property_name
+        datatype: String
+      - name: state_code
+        expression:
+          sql: state_code
+        datatype: String
+      - name: city_name
+        expression:
+          sql: city_name
+        datatype: String
+      - name: county_name
+        expression:
+          sql: county_name
+        datatype: String
+      - name: msa_name
+        expression:
+          sql: msa_name
+        datatype: String
+      - name: property_category
+        expression:
+          sql: property_category
+        datatype: String
+      - name: total_unit_count
+        expression:
+          sql: total_unit_count
+        datatype: Integer
+      - name: total_assisted_unit_count
+        expression:
+          sql: total_assisted_unit_count
+        datatype: Integer
+    metrics:
+      - name: hud_property_count
+        expression:
+          sql: COUNT(DISTINCT property_id)
+        datatype: Integer
+        description: Number of distinct properties in the HUD property sheet.
+      - name: hud_reported_total_units
+        expression:
+          sql: SUM(total_unit_count)
+        datatype: Integer
+        description: Sum of HUD-reported total units at the property grain.
+  - name: hud_rent_observation
+    source: mart.vw_hud_rent_observation
+    primary_key: [observation_id]
+    description: >-
+      One nonblank source row from either HUD contract rent workbook sheet.
+      The proposed property/contract/bedroom key is non-unique and remains
+      diagnostic only.
+    fields:
+      - name: observation_id
+        expression:
+          sql: observation_id
+        datatype: Integer
+      - name: property_id
+        expression:
+          sql: property_id
+        datatype: Integer
+      - name: contract_number
+        expression:
+          sql: contract_number
+        datatype: String
+      - name: assistance_bedroom_count
+        expression:
+          sql: assistance_bedroom_count
+        datatype: Integer
+      - name: assistance_unit_count
+        expression:
+          sql: assistance_unit_count
+        datatype: Integer
+        description: Source-row field; do not use as a summary weight yet.
+      - name: contract_rent_amount
+        expression:
+          sql: contract_rent_amount
+        datatype: Decimal
+      - name: fair_market_rent_amount
+        expression:
+          sql: fair_market_rent_amount
+        datatype: Decimal
+      - name: utility_allowance_amount
+        expression:
+          sql: utility_allowance_amount
+        datatype: Decimal
+      - name: row_gross_amount
+        expression:
+          sql: row_gross_amount
+        datatype: Decimal
+        description: Contract rent plus utility allowance on this source row.
+      - name: row_gross_to_fmr_ratio
+        expression:
+          sql: row_gross_to_fmr_ratio
+        datatype: Decimal
+        description: Row-level ratio only; do not average over source observations.
+      - name: property_match_status
+        expression:
+          sql: property_match_status
+        datatype: String
+      - name: stated_key_row_count
+        expression:
+          sql: stated_key_row_count
+        datatype: Integer
+      - name: exact_payload_copy_count
+        expression:
+          sql: exact_payload_copy_count
+        datatype: Integer
+relationships:
+  - name: rent_observations_to_hud_property
+    from: hud_rent_observation
+    to: hud_property
+    from_columns: [property_id]
+    to_columns: [property_id]
+

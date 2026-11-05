@@ -1,0 +1,53 @@
+{
+  "capture_date": "2026-11-05",
+  "database": {
+    "engine": "PostgreSQL",
+    "image": "postgres:16-alpine",
+    "bind_address": "127.0.0.1",
+    "port": 5432,
+    "health_at_capture": "healthy",
+    "schemas": ["raw", "staging", "core", "mart"]
+  },
+  "property_model": {
+    "rows": 37438,
+    "distinct_property_ids": 37438,
+    "duplicate_property_id_groups": 0,
+    "hud_reported_total_units": 3022278,
+    "hud_reported_assisted_units": 1484747,
+    "arkansas_properties": 453,
+    "arkansas_hot_springs_city_rows": 17
+  },
+  "rent_source_observations": {
+    "rows": 73298,
+    "matched_property_rows": 63363,
+    "unmatched_property_rows": 9935,
+    "nonunique_property_contract_bedroom_key_groups": 28351,
+    "excess_rows_on_proposed_key": 40123,
+    "conflicting_payload_groups_on_proposed_key": 27741,
+    "proposed_key_field_variation_groups": {
+      "assistance_unit_count": 5077,
+      "contract_rent_amount": 4793,
+      "fair_market_rent_amount": 26536,
+      "utility_allowance_amount": 3313
+    },
+    "exact_payload_copy_groups": 800,
+    "exact_payload_copy_observations": 1600,
+    "excess_exact_copy_rows": 800,
+    "grain_status": "unresolved",
+    "rent_aggregation_status": "blocked"
+  },
+  "top_states_by_property_count": [
+    {"state_code": "CA", "properties": 2726, "hud_reported_units": 206002},
+    {"state_code": "TX", "properties": 2386, "hud_reported_units": 283682},
+    {"state_code": "OH", "properties": 2080, "hud_reported_units": 148512},
+    {"state_code": "NY", "properties": 1898, "hud_reported_units": 231315},
+    {"state_code": "IL", "properties": 1616, "hud_reported_units": 142212}
+  ],
+  "mart_views": [
+    "mart.vw_hud_property_overview",
+    "mart.vw_hud_rent_observation",
+    "mart.vw_hud_source_quality"
+  ],
+  "source_manifest": "artifacts/source-profile-2026-11-05.json"
+}
+
