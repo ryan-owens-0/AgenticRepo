@@ -1,2 +1,3 @@
 # AgenticRepo
-Just A Test? 
+
+PostgreSQL, Power BI, Report Builder interface test
